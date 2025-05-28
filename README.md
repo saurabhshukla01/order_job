@@ -49,19 +49,32 @@ Then create the DB in your MySQL server (e.g., via phpMyAdmin or CLI).
 ## 📥 3. Create Models and Migrations
 
 ```bash
+php artisan make:model Product -m
 php artisan make:model Order -m
 php artisan make:model OrderItem -m
-php artisan make:model Product -m
 ```
 
 Edit migration files to define schema:
+
+### `create_products_table.php`
+
+```php
+Schema::create('products', function (Blueprint $table) {
+    $table->id();
+    $table->string('name');
+    $table->decimal('price', 10, 2);
+    $table->timestamps();
+});
+```
 
 ### `create_orders_table.php`
 
 ```php
 Schema::create('orders', function (Blueprint $table) {
     $table->id();
-    $table->unsignedBigInteger('user_id');
+    $table->foreignId('user_id')->constrained()->onDelete('cascade');
+    $table->decimal('total', 10, 2);
+    $table->string('status')->default('pending');
     $table->timestamps();
 });
 ```
@@ -71,20 +84,9 @@ Schema::create('orders', function (Blueprint $table) {
 ```php
 Schema::create('order_items', function (Blueprint $table) {
     $table->id();
-    $table->unsignedBigInteger('order_id');
-    $table->unsignedBigInteger('product_id');
+    $table->foreignId('order_id')->constrained()->onDelete('cascade');
+    $table->foreignId('product_id')->constrained()->onDelete('cascade');
     $table->integer('quantity');
-    $table->decimal('price', 10, 2);
-    $table->timestamps();
-});
-```
-
-### `create_products_table.php`
-
-```php
-Schema::create('products', function (Blueprint $table) {
-    $table->id();
-    $table->string('name');
     $table->decimal('price', 10, 2);
     $table->timestamps();
 });
@@ -264,7 +266,6 @@ Now you have a full Laravel 12 API with order processing via job, transaction-sa
 
 ---
 
-> Built with ❤️ by Saurabh V2. Shukla
 
 ```
 
@@ -279,14 +280,22 @@ Let me know if you want me to include actual controller and job code samples too
 Jobs commands :
 
 # Set up env
+```bash
 QUEUE_CONNECTION=database
+```
 
 # Prepare job table
+```bash
 php artisan queue:table
 php artisan migrate
+```
 
 # Create and dispatch job
+```bash
 php artisan make:job ProcessOrderJob
+```
 
 # Run worker
+```bash
 php artisan queue:work
+```
