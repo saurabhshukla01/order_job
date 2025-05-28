@@ -1,0 +1,33 @@
+```  curl to do test >>
+
+curl --location 'http://127.0.0.1:8080/api/orders' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: ••••••' \
+--data '{
+  "total": 150,
+  "items": [
+    {
+      "product_id": 1,
+      "quantity": 2,
+      "price": 50
+    },
+    {
+      "product_id": 2,
+      "quantity": 1,
+      "price": 50
+    },
+    {
+      "product_id": 2,
+      "quantity": 1,
+      "price": 50
+    },
+    {
+      "product_id": 2,
+      "quantity": 7,
+      "price": 50
+    }
+  ]
+}
+'
+
+```
