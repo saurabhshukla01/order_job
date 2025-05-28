@@ -279,23 +279,23 @@ Let me know if you want me to include actual controller and job code samples too
 
 Jobs commands :
 
-# Set up env
+## Set up env
 ```bash
 QUEUE_CONNECTION=database
 ```
 
-# Prepare job table
+## Prepare job table
 ```bash
 php artisan queue:table
 php artisan migrate
 ```
 
-# Create and dispatch job
+## Create and dispatch job
 ```bash
 php artisan make:job ProcessOrderJob
 ```
 
-# Run worker
+## Run worker
 ```bash
 php artisan queue:work
 ```
