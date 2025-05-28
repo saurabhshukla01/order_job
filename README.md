@@ -1,5 +1,3 @@
-Sure! Here's a complete `README.md` file with **step-by-step instructions** for your Laravel 12 project that:
-
 * Creates an order with a job and transaction
 * Seeds dummy users and products
 * Uses Postman to test inserting data
